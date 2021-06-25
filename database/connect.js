@@ -28,6 +28,10 @@ let db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.users = require("../models/users")(db.sequelize, DataTypes);
+db.farmers = require("../models/farmers")(db.sequelize, DataTypes);
+db.users = require("../models/deliveryBoys")(db.sequelize, DataTypes);
+
 sequelize
     .sync()
     .then(() => {
