@@ -1,8 +1,9 @@
-import {farmers} from "./reducers";
+import {farmers,famersoldproducts} from "./reducers";
 import {combineReducers,createStore} from "redux";
 
 const Reducers = combineReducers({
-    farmers
+    farmers,
+    famersoldproducts
 });
 
 const Store = createStore(Reducers);

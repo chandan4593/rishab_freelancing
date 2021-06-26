@@ -1,4 +1,4 @@
-type farmersType = {
+interface farmersType  {
     [index:string]:string|number,
     productpic:string,
     productname:string,
@@ -7,6 +7,11 @@ type farmersType = {
     phoneno:string,
     location:string
 }
+
+interface famersoldproductsType extends farmersType {
+    createdAt:string
+}
+
 export const farmers = (state:farmersType[]=[],action:{payload:farmersType,type:string}) => {
     switch(action.type){
         case "addfarmers":return {
@@ -17,3 +22,12 @@ export const farmers = (state:farmersType[]=[],action:{payload:farmersType,type:
     }
 }
 
+export const famersoldproducts = (state:famersoldproductsType[]=[],action:{payload:famersoldproductsType,type:string}) => {
+    switch(action.type){
+        case "addfamersoldproducts":return {
+            ...state,
+            ...action.payload
+        }
+        default : return state;
+    }
+}
