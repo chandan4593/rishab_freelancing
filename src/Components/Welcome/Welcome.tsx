@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import './Welcome.scss';
 const HomePageImgStyles:React.CSSProperties = {
     width:"100%",
-    position:"absolute",
+    position:"fixed",
     top:0,
     left:0,
     zIndex:-999999,
