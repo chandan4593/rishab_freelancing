@@ -31,6 +31,11 @@ db.sequelize = sequelize;
 db.users = require("../models/users")(db.sequelize, DataTypes);
 db.farmers = require("../models/farmers")(db.sequelize, DataTypes);
 db.deliveryBoys = require("../models/deliveryBoys")(db.sequelize, DataTypes);
+db.farmerproducts = require("../models/farmerproducts")(db.sequelize, DataTypes);
+
+db.farmers.hasMany(db.farmerproducts);
+
+db.farmerproducts.belongsTo(db.farmers);
 
 sequelize
     .sync({ })

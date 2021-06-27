@@ -43,31 +43,28 @@ exports.postUserLoginIn = async(req, res, next) => {
         console.log(error);
     }
 }
-exports.postFarmerSingIn = async(req, res, next) => {
+exports.postFarmerSignUp = async(req, res, next) => {
     try {
-        const data = req.body.data;
+        const data = req.body;
         console.log(data);
-        let farmer = await db.farmers.findAll({
-            where: {
-                [Op.or]: [{ username: data.username }, { email: data.email }],
-            },
-        });
-        if (farmer.length === 0) {
-            console.log("ADDING Farmer");
-            farmer = await db.farmers.create({
+        if(data.password===data.conformpassword){
+            data["conformpassword"] = undefined;
+            const farmer = await db.farmers.create({
                 email: data.email,
-                username: data.username,
                 password: data.password,
             });
-            return res.send("SUCCESS");
+            console.log(farmer);
+            return res.status(200).send("SUCCESS");
+        }else{
+            return res.status(200).send("pass and conformpass are not matching");
         }
-        return res.send("ERROR");
     } catch (error) {
         console.log(error);
+        return res.status(400).send("ERROR invalid email");
     }
 }
 exports.postFarmerLogIn = async(req, res, next) => {try {
-    const data = req.body.data;
+    const data = req.body;
     console.log(data);
     let farmer = await db.farmers.findAll({
         where: {

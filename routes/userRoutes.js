@@ -8,12 +8,22 @@ router.post("/userSignIn", authController.postUserSingIn);
 
 router.post("/userLogIn", authController.postUserLoginIn);
 
-router.post("/farmerSignIn", authController.postFarmerSingIn);
+router.post("/farmerSignUp", authController.postFarmerSignUp);
 
 router.post("/farmerLogIn", authController.postFarmerLogIn);
 
 router.post("/postDeliveryBoyLogIn", authController.postDeliveryBoyLogIn);
 
 router.get('/', userController.welcomePage);
+
+router.post("/addfarmerpro",(req,res)=>{
+    require("../Controllers/farmer").addfarmerpro(req,res);
+});
+
+
+router.post("/deletefarmerpro",(req,res)=>{
+    require("../Controllers/farmer").deletefarmerpro(req,res);
+});
+
 
 module.exports = router;

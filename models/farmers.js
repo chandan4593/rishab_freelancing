@@ -1,14 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
     const Farmer = sequelize.define("Farmer", {
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
         email: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
+            primaryKey:true,
             trim: true,
             validate: {
                 isEmail: true,
