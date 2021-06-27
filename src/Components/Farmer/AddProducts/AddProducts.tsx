@@ -1,10 +1,14 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import {useSelector,useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 import {rootState} from "../../../redux/store";
 import TextField from '@material-ui/core/TextField';
 import Alert, { Color } from '@material-ui/lab/Alert';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import {Baseurl} from "../../../App";
+import axios from "axios";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 const AddProducts = () => {
     type alert = {
@@ -12,7 +16,7 @@ const AddProducts = () => {
         background : Color | undefined,
         msg : string
     }
-    const products = useSelector((state:rootState) => state.farmers);
+    const dispatch = useDispatch();
     const [open,setopen] = React.useState<alert>({
         visible:false,
         background:"success",
@@ -21,8 +25,9 @@ const AddProducts = () => {
     const alertstyle : React.CSSProperties = {
         display:(open.visible)?"flex":"none",
     }
+    const [progress,setprogress] = React.useState<"none"|"block">("none");
     interface adddata {
-        productpic : object|null,
+        productpic : File|null,
         productname:string,
         quantity:number,
         cost:number,
@@ -64,9 +69,56 @@ const AddProducts = () => {
         })
     }
     console.log(data);
+    const addproduct = async () => {
+        try{
+            const adddata = new FormData();
+            if(data.productpic){
+                adddata.append("file",data.productpic);
+            }
+            adddata.append("data", JSON.stringify({
+                productname:data.productname,
+                quantity:data.quantity,
+                cost:data.cost,
+                location:data.location,
+                phone:data.phone,
+                email:localStorage.getItem("username"),
+                password:localStorage.getItem("password")
+            }))
+            console.log(adddata);
+            setprogress("block");
+            const result = await axios({
+                method:"post",
+                url:`${Baseurl}/addfarmerpro`,
+                headers:{
+                    "Content-type": "multipart/form-data"
+                },
+                data:adddata
+            });
+            setprogress("none");
+            console.log(result.data);
+            dispatch({
+                payload:[result.data]
+            ,type:"addfarmers"
+        });
+        setopen({
+            background:"success",
+            visible:true,
+            msg:"product successfully added"
+        })
+        }catch(error){
+            console.log(error);
+            setprogress("none");
+            setopen({
+                background:"error",
+                visible:true,
+                msg:"product was not added try again"
+            })
+        }
+    }
     return (
         <div className="AddProducts mt-5">
             <div className="container">
+                <LinearProgress style={{display:progress}}/>
                 <Alert style={alertstyle} severity={open.background} onClose={()=>close({
                     visible:false,
                     background:"success",
@@ -112,7 +164,7 @@ const AddProducts = () => {
                                 name="phone"
                                 label="phone" />
                             <TextField
-                                label="cost"
+                                label="cost per kg"
                                 className="mx-4 my-2"
                                 value={data.cost}
                                 name="cost"
@@ -135,6 +187,7 @@ const AddProducts = () => {
                             component="label"
                             style={{display:"block"}}
                             className="mt-2 text-center"
+                            onClick={addproduct}
                             >
                             add product</Button>
                         </div>

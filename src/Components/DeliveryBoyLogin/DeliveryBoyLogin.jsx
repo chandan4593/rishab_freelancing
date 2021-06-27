@@ -1,9 +1,9 @@
 import React from 'react';
-import "./DeliveryBoyLogin.css"
+import "./DeliveryBoyLogin.scss"
 
 const DeliveryBoyLogin = () => {
     return (
-        <div>
+        <div className="DeliveryBoyLogin">
             <div class="container">
                 <div class="card">
                     <h1 class="card-title">Hello Agent!</h1>

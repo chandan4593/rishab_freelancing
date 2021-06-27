@@ -14,14 +14,15 @@ const HomePageImgStyles:React.CSSProperties = {
     height:"100%",
     backgroundPosition:"center",
     backgroundRepeat:"norepeat",
-    filter: "brightness(20%)",
+    filter: "brightness(40%)",
     opacity:0.9,
 } 
 const HomePageButtonStyles:React.CSSProperties = {
     display:"block",
     border: "2px solid #555",
     marginLeft: "auto",
-    width:"12rem"
+    width:"12rem",
+    filter: "brightness(340%)",
     
 }
 const Welcome = () => {
@@ -30,24 +31,32 @@ const Welcome = () => {
             <img src={Homepage} className="m-0 p-0"
                 style={HomePageImgStyles}  alt=""></img>
             <div className="conatiner-fluid">
-                <Header name="kissam mart"  todo="register"/>
+                <Header name="kissam mart"  todo=""/>
                 <div className="row m-0 p-0" style={{height:"100vh",backgroundPosition:"center center"}}>
-                    <div className="col m-0 px-0" style={{ paddingTop: "40vh" }}>
-                            <Link to="/"
+                    <div className="col m-0 px-0" style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)" }}>
+                            <Link to="/farmersauth"
                               style={{textDecoration:"none"}}>
                                 <Button
                                     className="px-3 mx-auto mb-4 py-3"
                                     style={HomePageButtonStyles}                            
-                                ><span style={{ color: "#fff" }}>Login as Farmer</span></Button>
+                                ><span style={{ color: "#fff" }}>Farmer Auth</span></Button>
                             </Link>
-                            <Link to="/"
+                            <Link to="/deliveryboylogin"
+                              style={{textDecoration:"none"}}>
+                                <Button
+                                    className="px-3 mx-auto mb-4 py-3"
+                                    style={HomePageButtonStyles}                            
+                                ><span style={{ color: "#fff" }}>DelverBoy Login</span></Button>
+                            </Link>
+                            <Link to="/customersauth"
                               style={{textDecoration:"none"}}>
                                 <Button
                                     className="py-3 mx-auto"
 
                                     style={HomePageButtonStyles}
-                                ><span style={{ color: "#fff" }}>Customer Login</span></Button>
+                                ><span style={{ color: "#fff" }}>Customer Auth</span></Button>
                             </Link>
+                            
                         </div>
                 </div>
             </div>

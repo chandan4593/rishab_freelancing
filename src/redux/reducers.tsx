@@ -4,20 +4,24 @@ interface farmersType  {
     productname:string,
     quantity:string,
     cost:number,
-    phoneno:string,
-    location:string
+    phone:string,
+    location:string,
+    id:string
 }
 
 interface famersoldproductsType extends farmersType {
     createdAt:string
 }
 
-export const farmers = (state:farmersType[]=[],action:{payload:farmersType,type:string}) => {
+export const farmers = (state:farmersType[]=[],action:{payload:farmersType[],type:string}) => {
     switch(action.type){
-        case "addfarmers":return {
+        case "addfarmers":return [
             ...state,
             ...action.payload
-        }
+        ]
+        case "addallfarmers":return [
+            ...action.payload,
+        ]
         default : return state;
     }
 }

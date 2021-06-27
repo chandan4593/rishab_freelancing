@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./CustomerSignin.css";
+import "./CustomerSignin.scss";
 
 const CustomerSignin = () => {
     const [loginFromSlide, setloginFromSlide] = useState("");
@@ -28,7 +28,7 @@ const CustomerSignin = () => {
     };
 
     return (
-        <div>
+        <div className="customersignin">
             <div className="wrapper">
                 <div className="title-text">
                     <div className={`title login ${loginTextSlide}`}>
