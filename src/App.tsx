@@ -8,6 +8,7 @@ import CustomerSignin from './Components/CustomerAuth/CustomerSignin';
 import DeliveryBoyLogin from './Components/DeliveryBoyLogin/DeliveryBoyLogin';
 import FarmerSignin from './Components/FarmerAuth/FarmerSignin';
 import Delivery from './Components/Delivery/Delivery';
+import shop from "./Components/Shop/Shop";
 
 export const Baseurl = "http://localhost:8000"
 
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/deliveryboylogin" component={DeliveryBoyLogin}></Route> 
           <Route exact path="/delivery" component={Delivery}></Route>  
           <Route exact path="/farmersauth" component={FarmerSignin}></Route>  
+          <Route exact path="/shop" component={shop}></Route>  
         </Provider>
       </Switch>
     </div>
