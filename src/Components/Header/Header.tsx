@@ -3,12 +3,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom'
+import {useHistory} from "react-router-dom";
 interface param {
     todo:string,
     name:string
 }
 const Header = (params:param) => {
+    const H = useHistory();
     return (
         <>
             <AppBar className="fixed-top" style={{ background: "#474646" }}>
@@ -19,9 +20,13 @@ const Header = (params:param) => {
                     </Typography>
                     <Button color="inherit"
                         style={{ marginLeft: "auto" }}
-                    ><Link to="/register"
-                    className="text-white"
-                    style={{textDecoration:"none"}}>{params.todo}</Link>
+                        onClick={()=>{
+                            localStorage.removeItem("username");
+                            localStorage.removeItem("password");
+                            H.push("/")
+                        }}
+                    >
+                        {params.todo}
                     </Button>
                 </Toolbar>
             </AppBar>

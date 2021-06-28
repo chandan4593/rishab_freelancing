@@ -1,0 +1,16 @@
+.Welcome .adminLogin {
+  position: absolute;
+  top: 50vh !important;
+  left: 50% !important;
+  -webkit-transform: translate(-100%, -50%);
+          transform: translate(-100%, -50%);
+}
+
+.Welcome .customerLogin {
+  position: absolute;
+  top: 50vh !important;
+  left: 50% !important;
+  -webkit-transform: translate(-75%, -50%);
+          transform: translate(-75%, -50%);
+}
+/*# sourceMappingURL=Welcome.css.map */
