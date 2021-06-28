@@ -23,34 +23,23 @@ const ShopNavbar = (props) => {
 
     return (
         <div>
-            <Navbar color="light" light expand="md" style={{ position: "fixed" , width:"100%"}}>
+            <Navbar light expand="md" style={{ backgroundColor:"white" ,position: "fixed" , width:"100%", zIndex: "100"}}>
                 <NavbarBrand href="/"><img src={logo} alt="logo" style={{
                     width: "6rem", height: "3rem"
                 }}></img></NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav className="mr-auto" navbar>
+                    <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink href="/components/">Components</NavLink>
+                            <NavLink href="/components/">Pending Orders</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="https://github.com/reactstrap/reactstrap">
-                                GitHub
+                                Orders
                             </NavLink>
                         </NavItem>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                Options
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                                <DropdownItem>Option 1</DropdownItem>
-                                <DropdownItem>Option 2</DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem>Reset</DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
                     </Nav>
-                    <NavbarText>Simple Text</NavbarText>
+                    <NavbarText className="ml-2">LogOut</NavbarText>
                 </Collapse>
             </Navbar>
         </div>
