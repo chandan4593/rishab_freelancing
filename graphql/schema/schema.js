@@ -16,13 +16,40 @@ const getfarmerpro = `
     }
 `
 
+const getallproducts = `
+    type getallproducts {
+        id:ID
+        productpic:String,
+        productname:String,
+        quantity:Float,
+        cost:Float,
+        location:String,
+        FarmerEmail:String
+    }
+`
+
+const getallorders = `
+    type getallorders {
+        id:ID
+        productname:String,
+        farmerlocation:String,
+        farmerphone:String,
+        customerlocation:String,
+        customerphone:String
+    }
+`
+
 const schema = buildSchema(`
     ${getfarmerpro}
+    ${getallproducts}
+    ${getallorders}
     type mutation {
         getfarmerpro(farmer:getfarmerproInput!):[getfarmerpro]
     }
     type query{
         get:String!
+        getallproducts:[getallproducts!]
+        getallorders:[getallorders!]
     }
     schema {
         mutation : mutation

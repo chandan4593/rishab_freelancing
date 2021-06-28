@@ -80,7 +80,7 @@ exports.postFarmerLogIn = async(req, res, next) => {try {
     console.log(error);
 }};
 exports.postDeliveryBoyLogIn = async(req, res, next) => {try {
-    const data = req.body.data;
+    const data = req.body;
     console.log(data);
     let deliveryBoy = await db.deliveryBoys.findAll({
         where: {
@@ -89,9 +89,9 @@ exports.postDeliveryBoyLogIn = async(req, res, next) => {try {
     });
     console.log(deliveryBoy);
     if (deliveryBoy.length === 1) {
-        return res.send("SUCCESS");
+        return res.status(200).send("SUCCESS");
     }
-    return res.send("ERROR");
+    return res.status(400).send("ERROR");
 } catch (error) {
     console.log(error);
 }};
