@@ -9,10 +9,12 @@ import DeliveryBoyLogin from './Components/DeliveryBoyLogin/DeliveryBoyLogin';
 import FarmerSignin from './Components/FarmerAuth/FarmerSignin';
 import Delivery from './Components/Delivery/Delivery';
 import shop from "./Components/Shop/Shop";
+import PendingOrders from './Components/CustomerOrders/PendingOrders/PendingOrders';
+import AcceptedOrders from './Components/CustomerOrders/AcceptedOrders/AcceptedOrders';
 
-export const Baseurl = "http://localhost:8000"
+export const Baseurl = "http://localhost:8000";
 
-export const Graphql = "http://localhost:8000/graphql"
+export const Graphql = "http://localhost:8000/graphql";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route exact path="/delivery" component={Delivery}></Route>  
           <Route exact path="/farmersauth" component={FarmerSignin}></Route>  
           <Route exact path="/shop" component={shop}></Route>  
+          <Route exact path="/pendingOrders" component={PendingOrders}></Route>  
+          <Route exact path="/acceptedOrders" component={AcceptedOrders}></Route>  
         </Provider>
       </Switch>
     </div>
