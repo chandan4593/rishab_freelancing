@@ -1,0 +1,19 @@
+.pendingOrdersHeading {
+    padding: 2rem;
+    background: rgb(235, 233, 234);
+    background: radial-gradient(
+        circle,
+        rgba(235, 233, 234, 1) 36%,
+        rgba(255, 226, 200, 1) 78%,
+        rgba(255, 206, 163, 1) 100%
+    );
+    text-align: center;
+}
+.pendingOrdersProducts {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    padding: 2rem;
+}
