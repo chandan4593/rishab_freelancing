@@ -3,30 +3,30 @@ const { Op } = require("sequelize");
 
 exports.postUserSingIn = async(req, res, next) => {
     try {
-        const data = req.body.data;
+        const data = req.body;
         console.log(data);
         let user = await db.users.findAll({
             where: {
-                [Op.or]: [{ username : data.username}, {email: data.email}],
+                email: data.email,
             },
         });
         if (user.length === 0) {
             console.log("ADDING USER");
             user = await db.users.create({
                 email: data.email,
-                username: data.username,
                 password: data.password,
             });
-            return res.send("SUCCESS");
+            return res.status(200).send("SUCCESS");
         }
-        return res.send("ERROR");
+        return res.status(400).send("ERROR");
     } catch (error) {
         console.log(error);
+        return res.status(400).send("ERROR");
     }
 }
 exports.postUserLoginIn = async(req, res, next) => {
     try {
-        const data = req.body.data;
+        const data = req.body;
         console.log(data);
         let user = await db.users.findAll({
             where: {
@@ -35,9 +35,9 @@ exports.postUserLoginIn = async(req, res, next) => {
         })
         console.log(user);
         if (user.length === 1) {
-            return res.send("SUCCESS");
+            return res.status(200).send("SUCCESS");
         }
-        return res.send("ERROR");
+        return res.status(400).send("ERROR");
     }
     catch (error) {
         console.log(error);
@@ -73,9 +73,9 @@ exports.postFarmerLogIn = async(req, res, next) => {try {
     });
     console.log(farmer);
     if (farmer.length === 1) {
-        return res.send("SUCCESS");
+        return res.status(200).send("SUCCESS");
     }
-    return res.send("ERROR");
+    return res.status(400).send("ERROR");
 } catch (error) {
     console.log(error);
 }};
@@ -94,4 +94,6 @@ exports.postDeliveryBoyLogIn = async(req, res, next) => {try {
     return res.status(400).send("ERROR");
 } catch (error) {
     console.log(error);
+    return res.status(400).send("ERROR");
+
 }};

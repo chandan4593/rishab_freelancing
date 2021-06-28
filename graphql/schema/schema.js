@@ -23,6 +23,7 @@ const getallproducts = `
         productname:String,
         quantity:Float,
         cost:Float,
+        phone:String,
         location:String,
         FarmerEmail:String
     }
@@ -31,7 +32,7 @@ const getallproducts = `
 const getallorders = `
     type getallorders {
         id:ID
-        farmerproductId:[getallproducts!]
+        farmerproduct:getallproducts
         UserEmail:String
     }
 `
@@ -47,6 +48,8 @@ const schema = buildSchema(`
         get:String!
         getallproducts:[getallproducts!]
         getallorders:[getallorders!]
+        getpendingorders:[getallorders!]
+        getnotifications:[getallorders!]
     }
     schema {
         mutation : mutation

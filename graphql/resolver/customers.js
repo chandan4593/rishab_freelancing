@@ -9,6 +9,7 @@ const customerauth = async (email,password) => {
                 password
             }
         });
+        console.log(result);
         if(result){
             return true;
         }else{
@@ -30,7 +31,8 @@ const getallproducts = async (args) => {
                     "quantity",
                     "cost",
                     "location",
-                    "FarmerEmail"
+                    "FarmerEmail",
+                    "phone"
                 ]
             });
             console.log(results);
@@ -44,7 +46,36 @@ const getallproducts = async (args) => {
     }
 }
 
+const getpendingorders = async (args,req) => {
+    console.log(req.get("authorization"));
+    let data = req.get("authorization");
+    data=JSON.parse(data);
+    console.log(data.email,data.password)
+    if(await customerauth(data.email,data.password)){
+        try{
+            const result = await db.orders.findAll({
+                where:{
+                    isaccepted:false
+                },
+                include:[
+                    {
+                        model:db.farmerproducts,
+                    },
+                ],
+            });
+            console.log(result);
+            return result;
+        }catch(error){
+            console.log(error);
+            throw new Error("cannot get");
+        }
+    }else{
+        throw new Error("user not authenticated");
+    }
+}
+
 module.exports = {
     getallproducts,
-    customerauth
+    customerauth,
+    getpendingorders
 }

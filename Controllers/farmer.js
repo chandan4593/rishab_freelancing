@@ -7,7 +7,7 @@ const farmerauth = async (email, password)=>{
     let result = await db.farmers.findOne({
         where:{
            email:data.email,
-           password:data.email 
+           password:data.password 
         }
     });
     console.log(result)
@@ -23,7 +23,7 @@ const addfarmerpro = async (req,res,next) => {
         const data = JSON.parse(req.body.data);
         console.log(data);
         const file = req.files.file;
-        if(farmerauth(data.email,data.password)){
+        if(await farmerauth(data.email,data.password)){
             result = await db.farmerproducts.create({
                 productpic:"",
                 productname:data.productname,

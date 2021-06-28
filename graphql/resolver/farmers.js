@@ -24,6 +24,35 @@ const getfarmerpro = async (args) => {
     }
 }
 
+const getnotifications = async (args,req) => {
+    console.log(req.get("authorization"));
+    let data = req.get("authorization");
+    data=JSON.parse(data);
+    console.log(data.email,data.password)
+    if(await farmerauth(data.email,data.password)){
+        try{
+            const result = await db.orders.findAll({
+                where:{
+                    isaccepted:false
+                },
+                include:[
+                    {
+                        model:db.farmerproducts,
+                    },
+                ],
+            });
+            console.log(result);
+            return result;
+        }catch(error){
+            console.log(error);
+            throw new Error("cannot get");
+        }
+    }else{
+        throw new Error("user not authenticated");
+    }
+}
+
 module.exports = {
-    getfarmerpro
+    getfarmerpro,
+    getnotifications
 }

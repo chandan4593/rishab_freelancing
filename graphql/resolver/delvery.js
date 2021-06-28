@@ -10,10 +10,8 @@ const getallorders = async () => {
             include:[
                 {
                     model:db.farmerproducts,
-                    raw:true
-                }
+                },
             ],
-            raw:true
         });
         console.log(result);
         return result;

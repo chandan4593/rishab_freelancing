@@ -30,6 +30,21 @@ const acceptorder = (req,res) => {
                     id:req.body.id
                 }
             });
+            console.log(result);
+            result = await db.farmerproducts.findOne({
+                where:{
+                    id:req.body.farmerproductId
+                },
+                raw:true
+            });
+            result = await db.pendings.create({
+                farmerstatus:false,
+                customerstatus:false,
+                FarmerEmail:result["FarmerEmail"],
+                UserEmail:result["UserEmail"],
+                DeliveryBoyEmail:req.body.email
+            });
+            console.log(result);
             return res.status(200).send(result);
         }
     }catch(error){
