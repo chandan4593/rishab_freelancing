@@ -14,6 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import organic from "../assets/organic.jpeg";
 import fromFarmer from "../assets/fromFarmer.jpeg";
 import fromfarm from "../assets/fromfarm.jpeg";
+import axios from "axios";
+import {Baseurl,Graphql} from "../../App";
 
 const useStyles = makeStyles({
     root: {
@@ -29,143 +31,64 @@ const useStyles = makeStyles({
 
 const Shop = () => {
     const [products, setproducts] = useState([
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "Potato",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "tomato",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "onion",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "brinjal",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "beans",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "mustard",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "tamarind",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "papaya",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "apple",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "mango",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "banana",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "cabage",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "Tamarind",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "Grapes",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "Beans",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "WaterMelon",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "Orange",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
+        // {
+        //     productpic: "https://picsum.photos/500/200",
+        //     productname: "Potato",
+        //     quantity: 5,
+        //     cost: 1000,
+        //     phone: "99992342349",
+        //     location: "this that location where you cant find me!",
+        // },
+        // {
+        //     productpic: "https://picsum.photos/500/200",
+        //     productname: "tomato",
+        //     quantity: 5,
+        //     cost: 1000,
+        //     phone: "99992342349",
+        //     location: "this that location where you cant find me!",
+        // },
     ]);
+    React.useEffect(()=>{
+        const getallproducts = async () => {
+            const body = {
+                query:`
+                    query{
+                        getallproducts{
+                            id
+                            productpic
+                            productname
+                            quantity
+                            cost
+                            phone
+                            location
+                            FarmerEmail
+                        }
+                    }
+                `
+            }
+            try{
+                const result = await axios({
+                    method:"post",
+                    url:Graphql,
+                    headers:{
+                        accept:"application/json",
+                        "Content-type": "application/json"
+                    },
+                    data:body
+                });
+                console.log(result.data);
+                if(result.data.error){
+
+                }
+                else{
+                    setproducts(result.data.data.getallproducts);                    
+                }
+            }catch(error){
+                console.log(error);
+            }
+        }
+        getallproducts();
+    },[]);
     const [displayProducts, setdisplayProducts] = useState([]);
     const [searchField, setsearchField] = useState("");
     const classes = useStyles();
@@ -173,7 +96,7 @@ const Shop = () => {
         setdisplayProducts([]);
         console.log("query: ", searchField, ".")
         products.forEach((product) => {
-            if (product.productName.includes(searchField)) {
+            if (product.productname.includes(searchField)) {
                 setdisplayProducts((i) => [...i, product]);
             }
         });
@@ -181,7 +104,22 @@ const Shop = () => {
     };
     useEffect(() => {
         filter();
-    }, [searchField]);
+    }, [searchField,products]);
+    const buyproduct = async (product) => {
+        product["email"]=localStorage.getItem("username");
+        product["password"]=localStorage.getItem("password");
+        console.log(product)
+        try{
+            const result = await axios({
+                url:`${Baseurl}/buyproduct`,
+                method:"post",
+                data:product
+            });
+            console.log(result);
+        }catch(error){
+            console.log(error);
+        }
+    }
     return (
         <div className="ShopMainDiv">
             <ShopNavbar />
@@ -207,7 +145,7 @@ const Shop = () => {
                             <CardActionArea>
                                 <CardMedia
                                     className={classes.media}
-                                    image={product.productPic}
+                                    image={product.productpic}
                                     title="Contemplative Reptile"
                                 />
                                 <CardContent>
@@ -216,7 +154,7 @@ const Shop = () => {
                                         variant="h5"
                                         component="h2"
                                     >
-                                        {product.productName}
+                                        {product.productname}
                                     </Typography>
                                     <Typography
                                         gutterBottom
@@ -249,7 +187,9 @@ const Shop = () => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Button size="small" color="primary">
+                                <Button size="small" color="primary" onClick={()=>{
+                                    buyproduct(product)
+                                }}>
                                     Buy Now
                                 </Button>
                             </CardActions>
@@ -448,7 +388,7 @@ const Shop = () => {
                                 <CardActionArea>
                                     <CardMedia
                                         className={classes.media}
-                                        image={product.productPic}
+                                        image={product.productpic}
                                         title="Contemplative Reptile"
                                     />
                                     <CardContent>
@@ -457,7 +397,7 @@ const Shop = () => {
                                             variant="h5"
                                             component="h2"
                                         >
-                                            {product.productName}
+                                            {product.productname}
                                         </Typography>
                                         <Typography
                                             gutterBottom

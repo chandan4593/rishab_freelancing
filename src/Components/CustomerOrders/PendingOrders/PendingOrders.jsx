@@ -9,6 +9,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import {Graphql} from "../../../App";
+import axios from "axios";
 
 const useStyles = makeStyles({
     root: {
@@ -25,30 +27,74 @@ const useStyles = makeStyles({
 const PendingOrders = () => {
     const [products, setproducts] = useState([
         {
-            productPic: "https://picsum.photos/500/200",
-            productName: "Potato",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
+            farmerproduct:{
+                productpic: "https://picsum.photos/500/200",
+                productname: "Potato",
+                quantity: 5,
+                cost: 1000,
+                phone: "99992342349",
+                location: "this that location where you cant find me!",
+            },
         },
         {
-            productPic: "https://picsum.photos/500/200",
-            productName: "tomato",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
+            farmerproduct:{
+                
+                productpic: "https://picsum.photos/500/200",
+                productname: "tomato",
+                quantity: 5,
+                cost: 1000,
+                phone: "99992342349",
+                location: "this that location where you cant find me!",
+            },
         },
         {
-            productPic: "https://picsum.photos/500/200",
-            productName: "onion",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
+            farmerproduct:{
+                productpic: "https://picsum.photos/500/200",
+                productname: "onion",
+                quantity: 5,
+                cost: 1000,
+                phone: "99992342349",
+                location: "this that location where you cant find me!",
+            },
         },
     ]);
+    React.useEffect(()=>{
+        const getmyorders = async () => {
+            try{
+                const body = {
+                    query:`
+                        query{
+                            getpendingorders{
+                                farmerproduct{
+                                    productpic
+                                     id
+                                     productname
+                                     quantity
+                                     cost
+                                     phone
+                                     location
+                                   }
+                            }
+                        }
+                    `
+                }
+                const details = {email:localStorage.getItem("username"),password:localStorage.getItem("password")}
+                const result = await axios({
+                    method:"post",
+                    url:Graphql,
+                    headers:{
+                        "Authorization":JSON.stringify(details)
+                    },
+                    data:body
+                });
+                console.log(result.data);
+                setproducts(result.data.data.getpendingorders)
+            }catch(error){
+                console.log(error);
+            }
+        }
+        getmyorders();
+    },[]);
     const classes = useStyles();
     return (
         <div>
@@ -66,7 +112,7 @@ const PendingOrders = () => {
                             <CardActionArea>
                                 <CardMedia
                                     className={classes.media}
-                                    image={product.productPic}
+                                    image={product.farmerproduct.productpic}
                                     title="Contemplative Reptile"
                                 />
                                 <CardContent>
@@ -75,35 +121,35 @@ const PendingOrders = () => {
                                         variant="h5"
                                         component="h2"
                                     >
-                                        {product.productName}
+                                        {product.farmerproduct.productname}
                                     </Typography>
                                     <Typography
                                         gutterBottom
                                         variant="h5"
                                         component="h2"
                                     >
-                                        ₹{product.cost}
+                                        ₹{product.farmerproduct.cost}
                                     </Typography>
                                     <Typography
                                         variant="body2"
                                         color="textSecondary"
                                         component="p"
                                     >
-                                        Only {product.quantity} Left!
+                                        Only {product.farmerproduct.quantity} Left!
                                     </Typography>
                                     <Typography
                                         variant="body2"
                                         color="textSecondary"
                                         component="p"
                                     >
-                                        Phone no: {product.phone}
+                                        Phone no: {product.farmerproduct.phone}
                                     </Typography>
                                     <Typography
                                         variant="body2"
                                         color="textSecondary"
                                         component="p"
                                     >
-                                        Location: {product.location}
+                                        Location: {product.farmerproduct.location}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
