@@ -7,11 +7,8 @@ const buyproduct = async (req,res) => {
         const data = req.body;
         if(customerauth(data.email,data.password)){
             const result = await db.orders.create({
-                productname:data.productname,
-                farmerlocation:data.farmerlocation,
-                farmerphone:data.farmerphone,
-                customerlocation:data.customerlocation,
-                customerphone:data.customerphone,
+                UserEmail:data.email,
+                farmerproductid:data.farmerproductId,
                 isaccepted:false
             });
             console.log(result);

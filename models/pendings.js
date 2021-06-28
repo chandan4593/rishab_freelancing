@@ -1,10 +1,10 @@
 const pendings = (sequelize,DataTypes) => {
     return sequelize.define("pending",{
         farmerstatus:{
-            type:DataTypes.Boolean
+            type:DataTypes.BOOLEAN
         },
         customerstatus:{
-            type:DataTypes.Boolean
+            type:DataTypes.BOOLEAN
         },
     });
 }

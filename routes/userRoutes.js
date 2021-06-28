@@ -20,10 +20,12 @@ router.post("/addfarmerpro",(req,res)=>{
     require("../Controllers/farmer").addfarmerpro(req,res);
 });
 
-
 router.post("/deletefarmerpro",(req,res)=>{
     require("../Controllers/farmer").deletefarmerpro(req,res);
 });
 
+router.post("/buyproduct",(req,res)=>{
+    require("../Controllers/customers").buyproduct(req,res);
+})
 
 module.exports = router;

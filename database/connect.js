@@ -40,21 +40,30 @@ db.farmers.hasMany(db.farmerproducts);
 
 db.farmerproducts.belongsTo(db.farmers);
 
+db.farmerproducts.hasMany(db.orders);
+
+db.orders.belongsTo(db.farmerproducts);
+
+db.users.hasMany(db.orders);
+
+db.orders.belongsTo(db.users);
+
 db.farmers.hasMany(db.pendings);
 
 db.deliveryBoys.hasMany(db.pendings);
 
 db.users.hasMany(db.pendings);
 
-db.pendings.belongsTo(users);
+db.pendings.belongsTo(db.users);
 
-db.pendings.belongsTo(farmers);
+db.pendings.belongsTo(db.farmers);
 
-db.pendings.belongsTo(deliveryBoys);
+db.pendings.belongsTo(db.deliveryBoys);
+
 
 
 sequelize
-    .sync({ })
+    .sync({ force:false})
     .then(() => {
         console.log("Tables Synced!");
     })

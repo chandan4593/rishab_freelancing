@@ -5,16 +5,15 @@ const getallorders = async () => {
     try{
         const result = await db.orders.findAll({
             where:{
-                isaccepted:true
+                isaccepted:false
             },
-            attributes:[
-                "id",
-                "productname",
-                "farmerlocation",
-                "farmerphone",
-                "customerlocation",
-                "customerphone",
-            ]
+            include:[
+                {
+                    model:db.farmerproducts,
+                    raw:true
+                }
+            ],
+            raw:true
         });
         console.log(result);
         return result;

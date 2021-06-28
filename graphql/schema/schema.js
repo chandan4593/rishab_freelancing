@@ -31,11 +31,8 @@ const getallproducts = `
 const getallorders = `
     type getallorders {
         id:ID
-        productname:String,
-        farmerlocation:String,
-        farmerphone:String,
-        customerlocation:String,
-        customerphone:String
+        farmerproductId:[getallproducts!]
+        UserEmail:String
     }
 `
 
