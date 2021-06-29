@@ -94,8 +94,53 @@ const deletefarmerpro = async (req,res) => {
     }
 }
 
+
+const pendingorders = async (req, res) => {
+    try{
+        console.log(req.body)
+        if(await farmerauth(req.body.email,req.body.password)){
+            const result = await db.pendings.findAll({
+                where:{
+                    [Op.and]:{
+                        FarmerEmail:req.body.email,
+                        farmerstatus:false
+                    }
+                }
+            })
+            return res.status(200).send(result);
+        }
+    }catch(error){
+        console.log(error);
+        return res.status(400).send("cannot get product");
+    }
+}
+
+const acceptorders = async (req,res) => {
+    try{
+        if(await farmerauth(req.body.email,req.body.password)){
+        const result = await db.pendings.update({
+            farmerstatus:true
+        },{
+            where:{
+                id:req.body.id,
+                FarmerEmail:req.body.email
+            }
+        })
+        console.log(result);
+        return res.status(200).send("success");
+    }else{
+        return res.status(400).send("error");
+    }
+    }catch(error){
+        console.log(error);
+        return res.status(400).send("error");
+    }
+}
+
 module.exports = {
     addfarmerpro,
     farmerauth,
-    deletefarmerpro
+    deletefarmerpro,
+    pendingorders,
+    acceptorders
 }

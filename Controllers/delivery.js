@@ -5,8 +5,8 @@ const deliveryauth = async (email,password) => {
     try{
         const result = await db.deliveryBoys.findOne({
             where:{
-                email:data.email,
-                password:data.password
+                email:email,
+                password:password
             }
         })
         console.log(result);
@@ -20,9 +20,10 @@ const deliveryauth = async (email,password) => {
     }
 }
 
-const acceptorder = (req,res) => {
+const acceptorder = async (req,res) => {
     try{
-        if(deliveryauth(req.body.email,req.body.password)){
+        console.log(req.body)
+        if(await deliveryauth(req.body.email,req.body.password)){
             let result = await db.orders.update({
                 isaccepted:true
             },{
@@ -41,7 +42,7 @@ const acceptorder = (req,res) => {
                 farmerstatus:false,
                 customerstatus:false,
                 FarmerEmail:result["FarmerEmail"],
-                UserEmail:result["UserEmail"],
+                UserEmail:req.body["UserEmail"],
                 DeliveryBoyEmail:req.body.email
             });
             console.log(result);
@@ -53,7 +54,31 @@ const acceptorder = (req,res) => {
     }
 }
 
+const pendingorders = async (req, res) => {
+    try{
+        console.log(req.body)
+        if(await deliveryauth(req.body.email,req.body.password)){
+            const result = await db.pendings.findAll({
+                where:{
+                    [Op.and]:{
+                        DeliveryBoyEmail:req.body.email,
+                        [Op.or]:{
+                            farmerstatus:false,
+                            customerstatus:false
+                        }
+                    }
+                }
+            })
+            return res.status(200).send(result);
+        }
+    }catch(error){
+        console.log(error);
+        return res.status(400).send("cannot get product");
+    }
+}
+
 module.exports = {
     acceptorder,
-    deliveryauth
+    deliveryauth,
+    pendingorders
 }

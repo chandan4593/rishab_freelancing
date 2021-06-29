@@ -28,4 +28,20 @@ router.post("/buyproduct",(req,res)=>{
     require("../Controllers/customers").buyproduct(req,res);
 })
 
+router.post("/pendingorders",(req,res)=>{
+    require("../Controllers/delivery").pendingorders(req,res);
+})
+
+router.post("/acceptorder",(req,res)=>{
+    require("../Controllers/delivery").acceptorder(req,res);
+})
+
+router.post("/pendingordersf",(req,res)=>{
+    require("../Controllers/farmer").pendingorders(req,res);
+})
+
+router.post("/acceptordersf",(req,res)=>{
+    require("../Controllers/farmer").acceptorders(req,res);
+})
+
 module.exports = router;

@@ -11,6 +11,9 @@ const getallorders = async () => {
                 {
                     model:db.farmerproducts,
                 },
+                {
+                    model:db.users,
+                },
             ],
         });
         console.log(result);

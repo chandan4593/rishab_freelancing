@@ -15,6 +15,8 @@ exports.postUserSingIn = async(req, res, next) => {
             user = await db.users.create({
                 email: data.email,
                 password: data.password,
+                location:data.location,
+                phone:data.phone
             });
             return res.status(200).send("SUCCESS");
         }

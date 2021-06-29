@@ -30,10 +30,15 @@ const getallproducts = `
 `
 
 const getallorders = `
+    type customer{
+        email:String,
+        phone:String,
+        location:String
+    } 
     type getallorders {
         id:ID
         farmerproduct:getallproducts
-        UserEmail:String
+        User:customer
     }
 `
 
