@@ -14,38 +14,7 @@ import axios from "axios";
 
 const Notifications = () => {
     const farmers = useSelector((state: rootState) => state.famersoldproducts);
-    const [products, setproducts] = React.useState([
-      {
-          farmerproduct:{
-              productpic: "https://picsum.photos/500/200",
-              productname: "Potato",
-              quantity: 5,
-              cost: 1000,
-              phone: "99992342349",
-              location: "this that location where you cant find me!",
-          },
-      },
-      {
-          farmerproduct:{
-              
-              productpic: "https://picsum.photos/500/200",
-              productname: "tomato",
-              quantity: 5,
-              cost: 1000,
-              phone: "99992342349",
-              location: "this that location where you cant find me!",
-          },
-      },
-      {
-          farmerproduct:{
-              productpic: "https://picsum.photos/500/200",
-              productname: "onion",
-              quantity: 5,
-              cost: 1000,
-              phone: "99992342349",
-              location: "this that location where you cant find me!",
-          },
-      },
+    const [products, setproducts] = React.useState<any>([
   ]);
     React.useEffect(()=>{
       const getnotifications = async () => {
@@ -108,7 +77,7 @@ const Notifications = () => {
             number of products = {farmers.length}
           </p>
           <div className="" style={{display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-around"}}>
-          {products.map((product) => (
+          {products.map((product:any) => (
                       <Card className="" style={{width:"300px"}}>
                       <CardActionArea>
                         <div style={{ width: "300px" }}>

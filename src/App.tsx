@@ -12,9 +12,9 @@ import shop from "./Components/Shop/Shop";
 import PendingOrders from './Components/CustomerOrders/PendingOrders/PendingOrders';
 import AcceptedOrders from './Components/CustomerOrders/AcceptedOrders/AcceptedOrders';
 
-export const Baseurl = "http://localhost:8000";
+export const Baseurl = "https://agrimarketapp.herokuapp.com";
 
-export const Graphql = "http://localhost:8000/graphql";
+export const Graphql = "https://agrimarketapp.herokuapp.com/graphql";
 
 function App() {
   return (

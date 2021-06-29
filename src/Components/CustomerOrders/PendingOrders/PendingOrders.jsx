@@ -26,37 +26,7 @@ const useStyles = makeStyles({
 
 const PendingOrders = () => {
     const [products, setproducts] = useState([
-        {
-            farmerproduct:{
-                productpic: "https://picsum.photos/500/200",
-                productname: "Potato",
-                quantity: 5,
-                cost: 1000,
-                phone: "99992342349",
-                location: "this that location where you cant find me!",
-            },
-        },
-        {
-            farmerproduct:{
-                
-                productpic: "https://picsum.photos/500/200",
-                productname: "tomato",
-                quantity: 5,
-                cost: 1000,
-                phone: "99992342349",
-                location: "this that location where you cant find me!",
-            },
-        },
-        {
-            farmerproduct:{
-                productpic: "https://picsum.photos/500/200",
-                productname: "onion",
-                quantity: 5,
-                cost: 1000,
-                phone: "99992342349",
-                location: "this that location where you cant find me!",
-            },
-        },
+  
     ]);
     React.useEffect(()=>{
         const getmyorders = async () => {

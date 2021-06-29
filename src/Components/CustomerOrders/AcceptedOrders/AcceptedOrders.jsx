@@ -26,30 +26,6 @@ const useStyles = makeStyles({
 
 const AcceptedOrders = () => {
     const [products, setproducts] = useState([
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "Potato",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "tomato",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
-        {
-            productPic: "https://picsum.photos/500/200",
-            productName: "onion",
-            quantity: 5,
-            cost: 1000,
-            phone: "99992342349",
-            location: "this that location where you cant find me!",
-        },
     ]);
     const [farmers,setfarmers] = React.useState([]);
     React.useEffect(()=>{
