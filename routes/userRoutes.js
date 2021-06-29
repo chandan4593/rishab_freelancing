@@ -44,4 +44,12 @@ router.post("/acceptordersf",(req,res)=>{
     require("../Controllers/farmer").acceptorders(req,res);
 })
 
+router.post("/pendingordersu",(req,res)=>{
+    require("../Controllers/customers").pendingorders(req,res);
+})
+
+router.post("/acceptordersu",(req,res)=>{
+    require("../Controllers/customers").acceptorders(req,res);
+})
+
 module.exports = router;
