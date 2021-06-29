@@ -9,6 +9,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import {Baseurl} from "../../../App"
+import axios from "axios"
 
 const useStyles = makeStyles({
     root: {
@@ -49,6 +51,36 @@ const AcceptedOrders = () => {
             location: "this that location where you cant find me!",
         },
     ]);
+    const [farmers,setfarmers] = React.useState([]);
+    React.useEffect(()=>{
+      const getallpendingorders = async () => {
+        try{
+          const result = await axios({
+            method:"post",
+            url:`${Baseurl}/pendingordersu`,
+            data:{email:localStorage.getItem("username"),password:localStorage.getItem("password")}
+          });
+          console.log(result);
+          setfarmers(result.data);
+
+        }catch(error){
+          console.log(error);
+        }
+      }
+      getallpendingorders();
+    },[]);
+    const deleteproduct = async (id) => {
+      try{
+        const result = await axios({
+          method:"post",
+          url:`${Baseurl}/acceptordersu`,
+          data:{email:localStorage.getItem("username"),password:localStorage.getItem("password"),id}
+        });
+        console.log(result);
+      }catch(error){
+        console.log(error);
+      }
+    }
     const classes = useStyles();
     return (
         <div>
@@ -59,61 +91,46 @@ const AcceptedOrders = () => {
             <div className="pendingOrdersHeading">
                 <h1>Accepted Orders</h1>
             </div>
-            {products.length !== 0 && products !== undefined ? (
+            {farmers.length !== 0 && farmers !== undefined ? (
                 <div className="pendingOrdersProducts">
-                    {products.map((product) => (
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={product.productPic}
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography
-                                        gutterBottom
-                                        variant="h5"
-                                        component="h2"
-                                    >
-                                        {product.productName}
-                                    </Typography>
-                                    <Typography
-                                        gutterBottom
-                                        variant="h5"
-                                        component="h2"
-                                    >
-                                        ₹{product.cost}
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        color="textSecondary"
-                                        component="p"
-                                    >
-                                        Only {product.quantity} Left!
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        color="textSecondary"
-                                        component="p"
-                                    >
-                                        Phone no: {product.phone}
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        color="textSecondary"
-                                        component="p"
-                                    >
-                                        Location: {product.location}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Order Recieved
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    ))}
+ {
+               farmers.map((ele)=>(
+                <Card className="" style={{width:"300px"}}>
+                  <CardActionArea>
+                    <CardContent>
+                      <Typography  className="text-center" gutterBottom variant="h5" component="h2">
+                        {ele.id}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p" className="text-center"
+                        >
+                          customerstatus = {(ele.farmerstatus)?"recieved":"pending"}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p" className="text-center"
+                      >
+                        DeliveryBoyEmail = {ele.DeliveryBoyEmail}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary"
+                        style={{display:"block",width:"max-content"}}
+                        className="mx-auto"
+                      onClick={()=>{
+                        deleteproduct(ele.id)
+                      }}
+                      >
+                      accept
+                    </Button>
+                  </CardActions>
+                </Card>
+               ))
+             } 
                 </div>
             ) : (
                 <d1v>

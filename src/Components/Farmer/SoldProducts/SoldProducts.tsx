@@ -9,10 +9,40 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-
+import {Baseurl} from "../../../App"
+import axios from "axios"
 
 const SoldProducts = () => {
-  const farmers = useSelector((state: rootState) => state.famersoldproducts);
+  const [farmers,setfarmers] = React.useState<any>([]);
+    React.useEffect(()=>{
+      const getallpendingorders = async () => {
+        try{
+          const result = await axios({
+            method:"post",
+            url:`${Baseurl}/pendingordersf`,
+            data:{email:localStorage.getItem("username"),password:localStorage.getItem("password")}
+          });
+          console.log(result);
+          setfarmers(result.data);
+
+        }catch(error){
+          console.log(error);
+        }
+      }
+      getallpendingorders();
+    },[]);
+    const deleteproduct = async (id:any) => {
+      try{
+        const result = await axios({
+          method:"post",
+          url:`${Baseurl}/acceptordersf`,
+          data:{email:localStorage.getItem("username"),password:localStorage.getItem("password"),id}
+        });
+        console.log(result);
+      }catch(error){
+        console.log(error);
+      }
+    }
     return (
         <div className="container">
         <div className="card my-4 p-3">
@@ -38,57 +68,44 @@ const SoldProducts = () => {
             number of products = {farmers.length}
           </p>
           <div className="" style={{display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-around"}}>
-          <Card className="" style={{width:"300px"}}>
-            <CardActionArea>
-              <div style={{ width: "300px" }}>
-                <img
-                  loading="lazy"
-                  src="https://source.unsplash.com/random"
-                  style={{ height: "200px", width: "100%" }}
-                />
-              </div>
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  productname
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  cost = 10 rupees
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  quantity = 10 Kg
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  phone = 999999999
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  location = Hyderebad
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="p"
-                >
-                  date = date
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          {
+               farmers.map((ele:any)=>(
+                <Card className="" style={{width:"300px"}}>
+                  <CardActionArea>
+                    <CardContent>
+                      <Typography  className="text-center" gutterBottom variant="h5" component="h2">
+                        {ele.id}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p" className="text-center"
+                        >
+                          farmerstatus = {(ele.farmerstatus)?"recieved":"pending"}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p" className="text-center"
+                      >
+                        DeliveryBoyEmail = {ele.DeliveryBoyEmail}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary"
+                        style={{display:"block",width:"max-content"}}
+                        className="mx-auto"
+                      onClick={()=>{
+                        deleteproduct(ele.id)
+                      }}
+                      >
+                      accept
+                    </Button>
+                  </CardActions>
+                </Card>
+               ))
+             } 
           </div>
         </div>
       </div>

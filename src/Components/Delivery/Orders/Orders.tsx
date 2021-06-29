@@ -13,6 +13,70 @@ import { useSelector, useDispatch } from "react-redux";
 import Button from '@material-ui/core/Button/Button';
 
 const Orders = () => {
+    const [orders,setorders] = React.useState<any>([]);
+    React.useEffect(()=>{
+      const getallorders = async () => {
+        try{
+          const body = {
+            query:`
+            query{
+              getallorders{
+                farmerproduct{
+                 productpic
+                  id
+                  productname
+                  quantity
+                  cost
+                  phone
+                  location
+                }
+                User {
+                  email
+                  location
+                  phone
+                }
+                id
+              }
+            }
+            
+            `
+          }
+          const result = await axios({
+            method:"post",
+            url:Graphql,
+            headers:{
+              "Authorization":JSON.stringify({email:localStorage.getItem("username"),password:localStorage.getItem("password")})
+            },
+            data:body
+          });
+          console.log(result.data);
+          setorders(result.data.data.getallorders)
+        }catch(error){
+          console.log(error);
+        }
+      }
+      getallorders();
+    },[]);
+    const buyproduct = async (ele:any) => {
+      try{
+        const body={
+          email:localStorage.getItem("username"),
+          password:localStorage.getItem("password"),
+          id:ele.id,
+          farmerproductId:ele.farmerproduct.id,
+          UserEmail:ele.User.email
+        }
+        console.log(body);
+        const result = await axios({
+          url:`${Baseurl}/acceptorder`,
+          method:"post",
+          data:body
+        });
+        console.log(result);
+      }catch(error){
+        console.log(error);
+      }
+    }
     return (
         <div className="DevOrders">
             <div className="container">
@@ -36,11 +100,11 @@ const Orders = () => {
                 />
               </div>
               <p className="text-center my-3">
-                number of products = 
+                number of products = {orders.length}
               </p>
               <div className="" style={{display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-around"}}>
-                {/* {
-                   farmers.map((ele)=>( */}
+                {
+                   orders.map((ele:any)=>(
                     <Card className="" style={{width:"300px"}}>
                       <CardActionArea>
                         <CardContent>
@@ -52,28 +116,28 @@ const Orders = () => {
                             color="textSecondary"
                             component="p" className="text-center"
                             >
-                              farmerlocation = ele.farmerlocation
+                              farmerlocation = {ele.farmerproduct.location}
                           </Typography>
                           <Typography
                             variant="body2"
                             color="textSecondary"
                             component="p" className="text-center"
                             >
-                             farmerphone =  ele.farmerphone
+                             farmerphone =  {ele.farmerproduct.phone}
                           </Typography>
                           <Typography
                             variant="body2"
                             color="textSecondary"
                             component="p" className="text-center"
                           >
-                              custlocation = ele.custlocation
+                              custlocation = {ele.User.location}
                           </Typography>
                           <Typography
                             variant="body2"
                             color="textSecondary"
                             component="p" className="text-center"
                           >
-                            customerno = ele.customerno
+                            customerno = {ele.User.phone}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
@@ -81,15 +145,16 @@ const Orders = () => {
                         <Button size="small" color="primary"
                             style={{display:"block",width:"max-content"}}
                             className="mx-auto"
-                        //   onClick={()=>{
-                        //     deleteproduct(ele.id)
-                        //   }}
+                          onClick={()=>{
+                            buyproduct(ele)
+                          }}
                           >
                           Accept
                         </Button>
                       </CardActions>
                     </Card>
-                {/* } */}
+                   ))
+                 } 
               </div>
             </div>
           </div>

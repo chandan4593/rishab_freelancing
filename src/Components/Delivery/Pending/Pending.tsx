@@ -13,6 +13,24 @@ import { useSelector, useDispatch } from "react-redux";
 import Button from '@material-ui/core/Button/Button';
 
 const Pending = () => {
+    const [farmers,setfarmers] = React.useState<any>([]); 
+    React.useEffect(()=>{
+      const getallpendingorders = async () => {
+        try{
+          const result = await axios({
+            method:"post",
+            url:`${Baseurl}/pendingorders`,
+            data:{email:localStorage.getItem("username"),password:localStorage.getItem("password")}
+          });
+          console.log(result);
+          setfarmers(result.data);
+
+        }catch(error){
+          console.log(error);
+        }
+      }
+      getallpendingorders();
+    },[]);
     return (
         <div className="DevOrders">
         <div className="container">
@@ -39,41 +57,27 @@ const Pending = () => {
             number of products = 
           </p>
           <div className="" style={{display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-around"}}>
-            {/* {
-               farmers.map((ele)=>( */}
+            {
+               farmers.map((ele:any)=>(
                 <Card className="" style={{width:"300px"}}>
                   <CardActionArea>
                     <CardContent>
                       <Typography  className="text-center" gutterBottom variant="h5" component="h2">
-                        ele.orderid
+                        {ele.id}
                       </Typography>
                       <Typography
                         variant="body2"
                         color="textSecondary"
                         component="p" className="text-center"
                         >
-                          farmerstatus = ele.farmerstatus
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p" className="text-center"
-                        >
-                         farmerphone =  ele.farmerphone
+                          farmerstatus = {(ele.farmerstatus)?"recieved":"pending"}
                       </Typography>
                       <Typography
                         variant="body2"
                         color="textSecondary"
                         component="p" className="text-center"
                       >
-                        customerstatus = ele.customerstatus
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p" className="text-center"
-                      >
-                          customerphone = ele.customerphone
+                        customerstatus = {(ele.customerstatus)?"recieved":"pending"}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
@@ -89,7 +93,8 @@ const Pending = () => {
                     </Button>
                   </CardActions>
                 </Card>
-            {/* } */}
+               ))
+             } 
           </div>
         </div>
       </div>

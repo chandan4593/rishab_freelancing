@@ -40,7 +40,9 @@ const CustomerSignin = () => {
     const [data1,setdata1] = React.useState({
         email:"",
         password:"",
-        conformpassword:""
+        conformpassword:"",
+        phone:"",
+        location:""
     });
     const loginChange = (e) => {
         setdata((pre)=>{
@@ -185,11 +187,21 @@ const CustomerSignin = () => {
                             </div>
                             <div className="field">
                                 <input
-                                    type="password"
-                                    placeholder="Confirm password"
+                                    type="phone"
+                                    placeholder="phoneno"
                                     required
-                                    value={data1.conformpassword}
-                                    name="conformpassword"
+                                    value={data1.phone}
+                                    name="phone"
+                                    onChange={registerChange}
+                                ></input>
+                            </div>
+                            <div className="field">
+                                <input
+                                    type="text"
+                                    placeholder="location"
+                                    required
+                                    value={data1.location}
+                                    name="location"
                                     onChange={registerChange}
                                 ></input>
                             </div>

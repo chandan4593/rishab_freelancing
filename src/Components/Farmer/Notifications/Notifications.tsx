@@ -76,6 +76,7 @@ const Notifications = () => {
             data:body
           });
           console.log(result.data);
+          setproducts(result.data.data.getnotifications)
         }catch(error){
           console.log(error);
         }
