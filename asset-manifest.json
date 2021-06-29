@@ -1,21 +1,26 @@
 {
   "files": {
-    "main.css": "/rishab_freelancing/static/css/main.03ff5fd5.chunk.css",
-    "main.js": "/rishab_freelancing/static/js/main.5ed72297.chunk.js",
-    "main.js.map": "/rishab_freelancing/static/js/main.5ed72297.chunk.js.map",
+    "main.css": "/rishab_freelancing/static/css/main.4f2e4289.chunk.css",
+    "main.js": "/rishab_freelancing/static/js/main.a6130a0d.chunk.js",
+    "main.js.map": "/rishab_freelancing/static/js/main.a6130a0d.chunk.js.map",
     "runtime-main.js": "/rishab_freelancing/static/js/runtime-main.fe9b989a.js",
     "runtime-main.js.map": "/rishab_freelancing/static/js/runtime-main.fe9b989a.js.map",
-    "static/js/2.e013f8ab.chunk.js": "/rishab_freelancing/static/js/2.e013f8ab.chunk.js",
-    "static/js/2.e013f8ab.chunk.js.map": "/rishab_freelancing/static/js/2.e013f8ab.chunk.js.map",
+    "static/js/2.73b4474b.chunk.js": "/rishab_freelancing/static/js/2.73b4474b.chunk.js",
+    "static/js/2.73b4474b.chunk.js.map": "/rishab_freelancing/static/js/2.73b4474b.chunk.js.map",
     "index.html": "/rishab_freelancing/index.html",
-    "static/css/main.03ff5fd5.chunk.css.map": "/rishab_freelancing/static/css/main.03ff5fd5.chunk.css.map",
-    "static/js/2.e013f8ab.chunk.js.LICENSE.txt": "/rishab_freelancing/static/js/2.e013f8ab.chunk.js.LICENSE.txt",
-    "static/media/Home.7be7e289.jpg": "/rishab_freelancing/static/media/Home.7be7e289.jpg"
+    "static/css/main.4f2e4289.chunk.css.map": "/rishab_freelancing/static/css/main.4f2e4289.chunk.css.map",
+    "static/js/2.73b4474b.chunk.js.LICENSE.txt": "/rishab_freelancing/static/js/2.73b4474b.chunk.js.LICENSE.txt",
+    "static/media/Home.7be7e289.jpg": "/rishab_freelancing/static/media/Home.7be7e289.jpg",
+    "static/media/fromFarmer.dc9a6258.jpeg": "/rishab_freelancing/static/media/fromFarmer.dc9a6258.jpeg",
+    "static/media/fromfarm.f6e2a8d4.jpeg": "/rishab_freelancing/static/media/fromfarm.f6e2a8d4.jpeg",
+    "static/media/logo.432d84e7.jpeg": "/rishab_freelancing/static/media/logo.432d84e7.jpeg",
+    "static/media/organic.a1b834cb.jpeg": "/rishab_freelancing/static/media/organic.a1b834cb.jpeg",
+    "static/media/shoptitle.1e190b59.jpeg": "/rishab_freelancing/static/media/shoptitle.1e190b59.jpeg"
   },
   "entrypoints": [
     "static/js/runtime-main.fe9b989a.js",
-    "static/js/2.e013f8ab.chunk.js",
-    "static/css/main.03ff5fd5.chunk.css",
-    "static/js/main.5ed72297.chunk.js"
+    "static/js/2.73b4474b.chunk.js",
+    "static/css/main.4f2e4289.chunk.css",
+    "static/js/main.a6130a0d.chunk.js"
   ]
 }
