@@ -96,6 +96,10 @@ const MyProducts = () => {
       console.log(error);
     }
   }
+  const [searchval,setsearchval] = React.useState<string>("");
+  const onsearch = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setsearchval(e.target.value);
+  }
   return (
     <div className="MyProducts">
       <Header name={currentstate} todo="logout" />
@@ -139,6 +143,8 @@ const MyProducts = () => {
                   className="px-2"
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
+                  onChange={onsearch}
+                  value={searchval}
                 />
               </div>
               <p className="text-center my-3">
@@ -146,7 +152,9 @@ const MyProducts = () => {
               </p>
               <div className="" style={{display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-around"}}>
                 {
-                  farmers.map((ele)=>(
+                  farmers.map((ele)=>{
+                    if(ele.productname.includes(searchval) || ele.location.includes(searchval))
+                    return (
                     <Card className="" style={{width:"300px"}}>
                       <CardActionArea>
                         <div style={{ width: "300px" }}>
@@ -199,7 +207,7 @@ const MyProducts = () => {
                         </Button>
                       </CardActions>
                     </Card>
-                  ))
+                  )})
                 }
               </div>
             </div>

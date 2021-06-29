@@ -54,7 +54,7 @@ const Pending = () => {
             />
           </div> */}
           <p className="text-center my-3">
-            number of products = 
+            number of products = {farmers.length}
           </p>
           <div className="" style={{display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-around"}}>
             {

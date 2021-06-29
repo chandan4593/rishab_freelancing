@@ -89,7 +89,11 @@ const ShopNavbar = (props) => {
                             </NavLink>
                         </NavItem>
                     </Nav>
-                    <NavbarText className="ml-2">LogOut</NavbarText>
+                    <NavbarText className="ml-2" onClick={()=>{
+                        history.push("/");
+                        localStorage.removeItem("username");
+                        localStorage.removeItem("password");
+                    }}>LogOut</NavbarText>
                 </Collapse>
             </Navbar>
         </div>
